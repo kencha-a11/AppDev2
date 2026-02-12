@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import LotsOfStyles from './LotsOfStyles';
 import FixedDimensionsBasics from './FixedDimensionsBasics';
 import FlexDimensionsBasics from './FlexDimensionsBasics';
+import PercentageDimensionsBasics from './PercentageDimesionsBasics';
 
 export default function App() {
   return (
@@ -12,7 +13,8 @@ export default function App() {
     // </View>
     // <LotsOfStyles />
     // <FixedDimensionsBasics />
-    <FlexDimensionsBasics />
+    // <FlexDimensionsBasics />
+    <PercentageDimensionsBasics />
   );
 }
 
