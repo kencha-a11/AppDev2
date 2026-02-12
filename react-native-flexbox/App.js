@@ -4,6 +4,7 @@ import Flex from './Flex';
 import FlexDirectionBasics from './FlexDirectionBasics';
 import DirectionLayout from './DirectionLayout';
 import JustifyContentBasics from './JustifyContentBasics';
+import AlignItemsLayout from './AlignItemsLayout';
 
 export default function App() {
   return (
@@ -14,7 +15,8 @@ export default function App() {
     // <Flex />
     // <FlexDirectionBasics />
     // <DirectionLayout />
-    <JustifyContentBasics />
+    // <JustifyContentBasics />
+    <AlignItemsLayout />
   );
 }
 
