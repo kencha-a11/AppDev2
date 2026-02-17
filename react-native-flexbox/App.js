@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Flex from './Flex';
-import FlexDirectionBasics from './FlexDirectionBasics';
-import DirectionLayout from './DirectionLayout';
-import JustifyContentBasics from './JustifyContentBasics';
-import AlignItemsLayout from './AlignItemsLayout';
+import Flex from './src/Flex';
+import FlexDirectionBasics from "./src/FlexDirectionBasics";
+import DirectionLayout from "./src/DirectionLayout";
+import JustifyContentBasics from "./src/JustifyContentBasics";
+import AlignItemsLayout from "./src/AlignItemsLayout";
+import AlignSelfLayout from './src/AlignSelfLayout';
 
 export default function App() {
   return (
@@ -16,7 +17,8 @@ export default function App() {
     // <FlexDirectionBasics />
     // <DirectionLayout />
     // <JustifyContentBasics />
-    <AlignItemsLayout />
+    // <AlignItemsLayout />
+    <AlignSelfLayout/>
   );
 }
 
