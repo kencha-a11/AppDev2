@@ -4,7 +4,7 @@ import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 
 export default function App() {
-  const [screen, setScreen] = useState("login"); // start at login
+  const [screen, setScreen] = useState("login"); 
 
   return (
     <View style={styles.container}>
