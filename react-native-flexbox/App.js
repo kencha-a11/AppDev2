@@ -7,6 +7,7 @@ import JustifyContentBasics from "./src/JustifyContentBasics";
 import AlignItemsLayout from "./src/AlignItemsLayout";
 import AlignSelfLayout from './src/AlignSelfLayout';
 import AlignContentLayout from './src/AlignContentLayout';
+import FlexWrapLayout from './src/FlexWrapLayout';
 
 export default function App() {
   return (
@@ -20,7 +21,8 @@ export default function App() {
     // <JustifyContentBasics />
     // <AlignItemsLayout />
     // <AlignSelfLayout/>
-    <AlignContentLayout/>
+    // <AlignContentLayout/>
+    <FlexWrapLayout/>
   );
 }
 
