@@ -41,7 +41,7 @@ const Login = ({ switchScreen }) => {
           <Entypo name="lock" size={24} color="#09234d" />
           <TextInput
             placeholder={"enter password"}
-            style={{ color: "#09234d" }}
+            style={{ color: "#09234e" }}
           />
         </View>
       </View>
