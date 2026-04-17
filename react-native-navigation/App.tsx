@@ -54,9 +54,15 @@ function DetailsScreen({ route }: any) {
       <Text>itemId: {JSON.stringify(itemId)}</Text>
       <Text>otherParam: {JSON.stringify(otherParam)}</Text>
       <Button
-        onPress={() => navigation.goBack()}
+        onPress={
+          () =>
+            navigation.setParams({
+              itemId: Math.floor(Math.random() * 100),
+              otherParam: 'random',
+            })
+        }
       >
-        Go to back
+        Go to Details... again
       </Button>
 
       {/* 
