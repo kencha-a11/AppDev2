@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import {
   createStaticNavigation,
   useNavigation,
@@ -21,26 +21,28 @@ type NavigationProp = NativeStackNavigationProp<
   'Home'
 >;
 
-function HomeScreen() {
-  const navigation = useNavigation<NavigationProp>();
+function HomeScreen({ route }: any) {
+  const navigation = useNavigation();
+
+  // Use an effect to monitor the update to params
+  React.useEffect(() => {
+    if (route.params?.post) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+      alert('New post: ' + route.params?.post);
+    }
+  }, [route.params?.post]);
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        onPress={() => {
-          /* 1. Navigate to the Details route with params */
-          navigation.navigate('Details', {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          });
-        }}
-      >
-        Go to Details
+      <Button onPress={() => navigation.navigate('CreatePost')}>
+        Create post
       </Button>
-
+      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
     </View>
   );
 }
+
 
 function DetailsScreen({ route }: any) {
   const navigation = useNavigation<NavigationProp>();
@@ -65,28 +67,40 @@ function DetailsScreen({ route }: any) {
         Go to Details... again
       </Button>
 
-      {/* 
-      <Button onPress={() => navigation.navigate('Details')}>
-        Go to Details... again using navigation stack
-      </Button>
-      <Button onPress={() => navigation.push('Details')}>
-        Go to Details... again using push
-      </Button>
-      <Button onPress={() => navigation.goBack()}>Go back</Button>
-      <Button onPress={() => navigation.popTo('Home')}>Go to Home</Button>
-      <Button onPress={() => navigation.popToTop()}>
-        Go back to first screen in stack
-      </Button> */}
 
     </View>
   );
 }
 
-const RootStack = createNativeStackNavigator<RootStackParamList>({
-  initialRouteName: 'Home',
+function CreatePostScreen({ route }: any) {
+  const navigation = useNavigation();
+  const [postText, setPostText] = React.useState('');
+
+  return (
+    <>
+      <TextInput
+        multiline
+        placeholder="What's on your mind?"
+        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
+        value={postText}
+        onChangeText={setPostText}
+      />
+      <Button
+        onPress={() => {
+          // Pass params back to home screen
+          navigation.popTo('Home', { post: postText });
+        }}
+      >
+        Done
+      </Button>
+    </>
+  );
+}
+
+const RootStack = createNativeStackNavigator({
   screens: {
     Home: HomeScreen,
-    Details: DetailsScreen,
+    CreatePost: CreatePostScreen,
   },
 });
 
@@ -95,4 +109,3 @@ const Navigation = createStaticNavigation(RootStack);
 export default function App() {
   return <Navigation />;
 }
-
