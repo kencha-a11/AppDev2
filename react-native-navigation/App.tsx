@@ -1,110 +1,68 @@
 import * as React from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { Text, View } from 'react-native';
 import {
   createStaticNavigation,
   useNavigation,
 } from '@react-navigation/native';
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Link } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Button } from '@react-navigation/elements';
 
-type RootStackParamList = {
-  Home: undefined;
-  Details: {
-    itemId: number;
-    otherParam: string;
-  }
-};
-
-type NavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'Home'
->;
-
-function HomeScreen({ route }: any) {
-  const navigation = useNavigation();
-
-  // Use an effect to monitor the update to params
-  React.useEffect(() => {
-    if (route.params?.post) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-      alert('New post: ' + route.params?.post);
-    }
-  }, [route.params?.post]);
+function SettingsScreen({ route }) {
+  const { userId } = route.params;
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.navigate('CreatePost')}>
-        Create post
-      </Button>
-      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+      <Text>Settings Screen</Text>
+      <Text>User ID: {JSON.stringify(userId)}</Text>
     </View>
   );
 }
 
-
-function DetailsScreen({ route }: any) {
-  const navigation = useNavigation<NavigationProp>();
-
-  /* 2. Get the param */
-  const { itemId, otherParam } = route.params;
+function HomeScreen() {
+  const navigation = useNavigation();
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <Text>itemId: {JSON.stringify(itemId)}</Text>
-      <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+      <Text>Home Screen</Text>
       <Button
         onPress={
           () =>
-            navigation.setParams({
-              itemId: Math.floor(Math.random() * 100),
-              otherParam: 'random',
+            navigation.navigate('More', {
+              screen: 'Settings',
+              params: { userId: 'jane' },
             })
         }
       >
-        Go to Details... again
+        Go to Settings
       </Button>
-
-
     </View>
   );
 }
 
-function CreatePostScreen({ route }: any) {
-  const navigation = useNavigation();
-  const [postText, setPostText] = React.useState('');
-
+function ProfileScreen() {
   return (
-    <>
-      <TextInput
-        multiline
-        placeholder="What's on your mind?"
-        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
-        value={postText}
-        onChangeText={setPostText}
-      />
-      <Button
-        onPress={() => {
-          // Pass params back to home screen
-          navigation.popTo('Home', { post: postText });
-        }}
-      >
-        Done
-      </Button>
-    </>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Profile Screen</Text>
+    </View>
   );
 }
 
-const RootStack = createNativeStackNavigator({
+const MoreStack = createNativeStackNavigator({
   screens: {
-    Home: HomeScreen,
-    CreatePost: CreatePostScreen,
+    Settings: SettingsScreen,
+    Profile: ProfileScreen,
   },
 });
 
-const Navigation = createStaticNavigation(RootStack);
+const RootTabs = createBottomTabNavigator({
+  screens: {
+    Home: HomeScreen,
+    More: MoreStack,
+  },
+});
+
+const Navigation = createStaticNavigation(RootTabs);
 
 export default function App() {
   return <Navigation />;
