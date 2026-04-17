@@ -31,14 +31,21 @@ function HomeScreen() {
 }
 
 function DetailsScreen() {
+  const navigation = useNavigation<NavigationProp>();
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
+      <Button onPress={() => navigation.navigate('Details')}>
+        Go to Details... again using navigation stack
+      </Button>
+      <Button onPress={() => navigation.push('Details')}>
+        Go to Details... again using push
+      </Button>
     </View>
   );
 }
 
-const RootStack = createNativeStackNavigator({
+const RootStack = createNativeStackNavigator<RootStackParamList>({
   initialRouteName: 'Home',
   screens: {
     Home: HomeScreen,
