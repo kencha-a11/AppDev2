@@ -1,17 +1,31 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
-import { createStaticNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  createStaticNavigation, 
+  useNavigation,
+} from '@react-navigation/native';
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Link } from '@react-navigation/native';
 import { Button } from '@react-navigation/elements';
 
+type RootStackParamList = {
+  Home: undefined;
+  Details: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Home'
+>;
 
 function HomeScreen() {
+  const navigation = useNavigation<NavigationProp>();
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
-      <Link screen="Details" params={{}}>Go to Details</Link>
-      <Button screen="Details" params={{}}>Go to Details</Button>
+      <Button onPress={() => navigation.navigate('Details')}>
+        Go to Details
+      </Button>
     </View>
   );
 }
